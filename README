@@ -1,0 +1,24 @@
+
+Module allows userspace to apply some random Device Tree Overlay.
+
+Compilation
+===========
+
+$ export ACH=arm
+$ export CROSS_COMPILE=arm-linux-gnueabihf-
+$ make -C ../linux M=$PWD
+
+Usage
+=====
+
+# insmod debugfs_overlay.ko
+
+Once module is loaded it will create overlay directory under /sys/kernel/debug
+with dtb writable file inside. One applies specific overlay by writing it
+to dtb:
+
+# cat fragment.dtb > /sys/kernel/debug/overlay/dtb
+
+Writing some random bytes to dtb removes previously applied overlay:
+
+# echo "" > /sys/kernel/debug/overlay/dtb
